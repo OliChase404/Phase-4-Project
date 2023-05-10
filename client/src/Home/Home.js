@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavBar from "NavBar";
+import NavBar from "./NavBar/NavBar";
 
 function Home() {
   const [comments, setComments] = useState([]);
