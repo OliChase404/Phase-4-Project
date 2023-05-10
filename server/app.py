@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_migrate import Migrate
 
-from models import db, Influencer, InfluencerCampaign, Campaign, BrandCampaign, Brand
+from models import db, Influencer, Campaign, Brand, BrandCampaign, BrandRegion, InfluencerRegion, Region
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'

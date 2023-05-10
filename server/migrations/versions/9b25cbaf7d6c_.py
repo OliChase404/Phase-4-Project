@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 000e0d6de311
+Revision ID: 9b25cbaf7d6c
 Revises: 
-Create Date: 2023-05-09 10:10:36.809039
+Create Date: 2023-05-09 17:36:18.489820
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '000e0d6de311'
+revision = '9b25cbaf7d6c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,27 +23,41 @@ def upgrade():
     sa.Column('email', sa.String(), nullable=True),
     sa.Column('brand_name', sa.String(), nullable=True),
     sa.Column('password', sa.String(), nullable=True),
+    sa.Column('image', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_brands')),
-    sa.UniqueConstraint('email', name=op.f('uq_brands_email'))
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('influencers',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=True),
     sa.Column('email', sa.String(), nullable=True),
     sa.Column('password', sa.String(), nullable=True),
+    sa.Column('image', sa.String(), nullable=True),
     sa.Column('rank', sa.Integer(), nullable=True),
     sa.Column('youtube', sa.String(), nullable=True),
     sa.Column('twitter', sa.String(), nullable=True),
     sa.Column('instagram', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_influencers')),
-    sa.UniqueConstraint('email', name=op.f('uq_influencers_email')),
-    sa.UniqueConstraint('instagram', name=op.f('uq_influencers_instagram')),
-    sa.UniqueConstraint('twitter', name=op.f('uq_influencers_twitter')),
-    sa.UniqueConstraint('youtube', name=op.f('uq_influencers_youtube'))
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('regions',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('region', sa.String(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('brand_regions',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('brand_id', sa.Integer(), nullable=True),
+    sa.Column('region_id', sa.Integer(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['brand_id'], ['brands.id'], ),
+    sa.ForeignKeyConstraint(['region_id'], ['regions.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('campaigns',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -55,8 +69,18 @@ def upgrade():
     sa.Column('brand_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['brand_id'], ['brands.id'], name=op.f('fk_campaigns_brand_id_brands')),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_campaigns'))
+    sa.ForeignKeyConstraint(['brand_id'], ['brands.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('influencer_regions',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('influencer_id', sa.Integer(), nullable=True),
+    sa.Column('region_id', sa.Integer(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['influencer_id'], ['influencers.id'], ),
+    sa.ForeignKeyConstraint(['region_id'], ['regions.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('brand_campaigns',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -64,19 +88,19 @@ def upgrade():
     sa.Column('campaign_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['brand_id'], ['brands.id'], name=op.f('fk_brand_campaigns_brand_id_brands')),
-    sa.ForeignKeyConstraint(['campaign_id'], ['campaigns.id'], name=op.f('fk_brand_campaigns_campaign_id_campaigns')),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_brand_campaigns'))
+    sa.ForeignKeyConstraint(['brand_id'], ['brands.id'], ),
+    sa.ForeignKeyConstraint(['campaign_id'], ['campaigns.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('influencer_campaigns',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('influencer_Id', sa.Integer(), nullable=True),
-    sa.Column('campaign_Id', sa.Integer(), nullable=True),
+    sa.Column('influencer_id', sa.Integer(), nullable=True),
+    sa.Column('campaign_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['campaign_Id'], ['campaigns.id'], name=op.f('fk_influencer_campaigns_campaign_Id_campaigns')),
-    sa.ForeignKeyConstraint(['influencer_Id'], ['influencers.id'], name=op.f('fk_influencer_campaigns_influencer_Id_influencers')),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_influencer_campaigns'))
+    sa.ForeignKeyConstraint(['campaign_id'], ['campaigns.id'], ),
+    sa.ForeignKeyConstraint(['influencer_id'], ['influencers.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
 
@@ -85,7 +109,10 @@ def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_table('influencer_campaigns')
     op.drop_table('brand_campaigns')
+    op.drop_table('influencer_regions')
     op.drop_table('campaigns')
+    op.drop_table('brand_regions')
+    op.drop_table('regions')
     op.drop_table('influencers')
     op.drop_table('brands')
     # ### end Alembic commands ###

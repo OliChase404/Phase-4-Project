@@ -4,17 +4,8 @@ from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy_serializer import SerializerMixin
 
-convention = {
-  "ix": "ix_%(column_0_label)s",
-  "uq": "uq_%(table_name)s_%(column_0_name)s",
-  "ck": "ck_%(table_name)s_%(constraint_name)s",
-  "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-  "pk": "pk_%(table_name)s"
-}
+db = SQLAlchemy()
 
-metadata = MetaData(naming_convention=convention)
-
-db = SQLAlchemy(metadata=metadata)
 
 class Influencer(db.Model, SerializerMixin):
     __tablename__ = 'influencers'
@@ -22,31 +13,33 @@ class Influencer(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    email = db.Column(db.String, unique=True)
+    email = db.Column(db.String)
     password = db.Column(db.String)
+    image = db.Column(db.String)
     rank = db.Column(db.Integer)
-    youtube = db.Column(db.String, unique=True)
-    twitter = db.Column(db.String, unique=True)
-    instagram = db.Column(db.String, unique=True)
+    youtube = db.Column(db.String)
+    twitter = db.Column(db.String)
+    instagram = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
-    influencer_campaigns = db.relationship('Campaign', back_populates='influencer')
-    campaigns = association_proxy('influencer_campaigns', 'campaigns', creator=lambda c: InfluencerCampaign(campaigns=c))
+    influencer_campaigns = db.relationship('InfluencerCampaign', back_populates='influencers')
+    campaigns = association_proxy('influencer_campaigns', 'campaign', creator=lambda c: InfluencerCampaign(campaign=c))
+    influencer_regions = db.relationship('InfluencerRegion', back_populates='influencer')
+    
     
 class InfluencerCampaign(db.Model, SerializerMixin):
     __tablename__ = 'influencer_campaigns'
     serialize_rules = ('-influencers', '-campaigns')
     
     id = db.Column(db.Integer, primary_key=True)
-    influencer_Id = db.Column(db.Integer, db.ForeignKey('influencers.id'))
-    campaign_Id = db.Column(db.Integer, db.ForeignKey('campaigns.id'))
+    influencer_id = db.Column(db.Integer, db.ForeignKey('influencers.id'))
+    campaign_id = db.Column(db.Integer, db.ForeignKey('campaigns.id'))
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
     
     influencers = db.relationship('Influencer', back_populates='influencer_campaigns')
     campaigns = db.relationship('Campaign', back_populates='influencer_campaigns')
-    
     
 
 class Campaign(db.Model, SerializerMixin):
@@ -63,10 +56,10 @@ class Campaign(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
-    influencer_campaigns = db.relationship('Influencer', back_populates='campaigns')
-    influencers = association_proxy('Influencer_campaigns', 'influencers', creator=lambda i: InfluencerCampaign(influencers=i))
+    influencer_campaigns = db.relationship('InfluencerCampaign', back_populates='campaigns')
+    influencers = association_proxy('influencer_campaigns', 'influencer', creator=lambda i: InfluencerCampaign(influencer=i))
     
-    brand_campaigns = db.relationship('Brand', back_populates='campaigns')
+    brand_campaigns = db.relationship('BrandCampaign', back_populates='campaigns')
     brand = association_proxy('brand_campaigns', 'brands', creator=lambda b: BrandCampaign(brand=b))
     
     
@@ -80,24 +73,76 @@ class BrandCampaign(db.Model, SerializerMixin):
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
     
-    campaign = db.relationship('Campaign', back_populates='brand_campaigns')
-    brand = db.relationship('Brand', back_populates='brand_campaigns')
+    campaigns = db.relationship('Campaign', back_populates='brand_campaigns')
+    brands = db.relationship('Brand', back_populates='brand_campaigns')
     
-
-
+    
 class Brand(db.Model):
     __tablename__ = 'brands'
     serialize_rules = ('-brand_campaign', '-campaign')
     
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String, unique=True)
+    email = db.Column(db.String)
     brand_name = db.Column(db.String)
     password = db.Column(db.String)
+    image = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
-    campaigns = db.relationship('Campaign', back_populates='brands')
-    brand_campaigns = db.relationship('Campaign', back_populates='brand_campaigns')
+    brand_campaigns = db.relationship('BrandCampaign', back_populates='brands')
+    campaigns = association_proxy('brand_campaigns', 'campaign', creator=lambda c: BrandCampaign(campaign=c))
+    
+    brand_regions = db.relationship('BrandRegion', back_populates='brand')
+    regions = association_proxy('brand_regions', 'region', creator=lambda r: BrandRegion(region=r))
+    
+    
+class BrandRegion(db.Model):
+    __tablename__ = 'brand_regions'
+    serialize_rules = ('-brand', '-region')
+    
+    id = db.Column(db.Integer, primary_key=True)
+    brand_id = db.Column(db.Integer, db.ForeignKey('brands.id'))
+    region_id = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    created_at = db.Column(db.DateTime, default=db.func.now())
+    updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
+    
+    brand = db.relationship('Brand', back_populates='brand_regions')
+    region = db.relationship('Region', back_populates='brand_regions')
+    
+    
+class InfluencerRegion(db.Model):
+    __tablename__ = 'influencer_regions'
+    serialize_rules = ('-influencer', '-region')
+    
+    id = db.Column(db.Integer, primary_key=True)
+    influencer_id = db.Column(db.Integer, db.ForeignKey('influencers.id'))
+    region_id = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    created_at = db.Column(db.DateTime, default=db.func.now())
+    updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
+    
+    influencer = db.relationship('Influencer', back_populates='influencer_regions')
+    region = db.relationship('Region', back_populates='influencer_regions')
+    
+    
+class Region(db.Model):
+    __tablename__ = 'regions'
+    serialize_rules = ('-brand_regions', '-influencer_regions')
+    
+    id = db.Column(db.Integer, primary_key=True)
+    region = db.Column(db.String)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    
+    brand_regions = db.relationship('BrandRegion', back_populates='region')
+    brands = association_proxy('brand_regions', 'brand', creator=lambda b: BrandRegion(brand=b))
+    
+    influencer_regions = db.relationship('InfluencerRegion', back_populates='region')
+    influencers = association_proxy('influencer_regions', 'influencer', creator=lambda i: InfluencerRegion(influencer=i))
+    
+    
+    
+    
+    
     
 
     
