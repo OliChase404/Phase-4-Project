@@ -124,40 +124,53 @@ def regions_show(id):
 @app.route('/influencers/<int:id>/campaigns', methods=['GET', 'POST'])
 def influencers_campaigns_index(id):
     influencer = Influencer.query.get(id)
+    this_influencer_campaigns = InfluencerCampaign.query.filter_by(influencer_id=id).all()
+    these_campaigns = [Campaign.query.get(c.campaign_id) for c in this_influencer_campaigns]
     if request.method == 'GET':
-        return jsonify([c.to_dict() for c in influencer.campaigns])
+        return jsonify([c.to_dict() for c in these_campaigns])
     elif request.method == 'POST':
-        campaign = Campaign(**request.json)
-        influencer.campaigns.append(campaign)
+        new_campaign = Campaign(**request.json)
+        db.session.add(new_campaign)
         db.session.commit()
-        return jsonify(campaign.to_dict()), 201
+        new_campaign_id = new_campaign.id
+        new_influencer_campaign = InfluencerCampaign(influencer_id=id, campaign_id=new_campaign_id)
+        db.session.add(new_influencer_campaign)
+        db.session.commit()
+        return jsonify(new_campaign.to_dict()), 201
+        
     
-@app.route('/influencers/<int:id>/campaigns/<int:campaign_id>', methods=['DELETE'])
-def influencers_campaigns_delete(id, campaign_id):
-    influencer = Influencer.query.get(id)
-    campaign = Campaign.query.get(campaign_id)
-    influencer.campaigns.remove(campaign)
-    db.session.commit()
-    return make_response('', 204)
+# @app.route('/influencers/<int:id>/campaigns/<int:campaign_id>', methods=['GET', 'DELETE'])
+# def influencers_campaigns_delete(id, campaign_id):
+#     influencer = Influencer.query.get(id)
+#     campaign = Campaign.query.get(campaign_id)
+#     influencer.campaigns.remove(campaign)
+#     db.session.commit()
+#     return make_response('', 204)
 
 @app.route('/brands/<int:id>/campaigns', methods=['GET', 'POST'])
 def brands_campaigns_index(id):
     brand = Brand.query.get(id)
+    this_brand_campaigns = BrandCampaign.query.filter_by(brand_id=id).all()
+    these_campaigns = [Campaign.query.get(c.campaign_id) for c in this_brand_campaigns]
     if request.method == 'GET':
-        return jsonify([c.to_dict() for c in brand.campaigns])
+        return jsonify([c.to_dict() for c in these_campaigns])
     elif request.method == 'POST':
-        campaign = Campaign(**request.json)
-        brand.campaigns.append(campaign)
+        new_campaign = Campaign(**request.json)
+        db.session.add(new_campaign)
         db.session.commit()
-        return jsonify(campaign.to_dict()), 201
+        new_campaign_id = new_campaign.id
+        new_brand_campaign = BrandCampaign(brand_id=id, campaign_id=new_campaign_id)
+        db.session.add(new_brand_campaign)
+        db.session.commit()
+        return jsonify(new_campaign.to_dict()), 201
     
-@app.route('/brands/<int:id>/campaigns/<int:campaign_id>', methods=['DELETE'])
-def brands_campaigns_delete(id, campaign_id):
-    brand = Brand.query.get(id)
-    campaign = Campaign.query.get(campaign_id)
-    brand.campaigns.remove(campaign)
-    db.session.commit()
-    return make_response('', 204)
+# @app.route('/brands/<int:id>/campaigns/<int:campaign_id>', methods=['DELETE'])
+# def brands_campaigns_delete(id, campaign_id):
+#     brand = Brand.query.get(id)
+#     campaign = Campaign.query.get(campaign_id)
+#     brand.campaigns.remove(campaign)
+#     db.session.commit()
+#     return make_response('', 204)
 
 @app.route('/brands/<int:id>/regions', methods=['GET', 'POST'])
 def brands_regions_index(id):
@@ -170,32 +183,39 @@ def brands_regions_index(id):
         db.session.commit()
         return jsonify(region.to_dict()), 201
     
-@app.route('/brands/<int:id>/regions/<int:region_id>', methods=['DELETE'])
-def brands_regions_delete(id, region_id):
-    brand = Brand.query.get(id)
-    region = Region.query.get(region_id)
-    brand.regions.remove(region)
-    db.session.commit()
-    return make_response('', 204)
+# @app.route('/brands/<int:id>/regions/<int:region_id>', methods=['DELETE'])
+# def brands_regions_delete(id, region_id):
+#     brand = Brand.query.get(id)
+#     region = Region.query.get(region_id)
+#     brand.regions.remove(region)
+#     db.session.commit()
+#     return make_response('', 204)
 
 @app.route('/influencers/<int:id>/regions', methods=['GET', 'POST'])
 def influencers_regions_index(id):
-    influencer = Influencer.query.get(id)
-    if request.method == 'GET':
-        return jsonify([r.to_dict() for r in influencer.regions])
+    influencer_regions = InfluencerRegion.query.filter_by(influencer_id=id).all()
+    regions = [Region.query.get(r.region_id) for r in influencer_regions]
+    if influencer_regions == [] or None or regions == [] or None:
+        return make_response('No Data', 204)
+    elif request.method == 'GET':
+        return jsonify([r.to_dict() for r in regions])
     elif request.method == 'POST':
         region = Region(**request.json)
-        influencer.regions.append(region)
+        db.session.add(region)
+        db.session.commit()
+        new_influencer_region = InfluencerRegion(influencer_id=id, region_id=region.id)
+        db.session.add(new_influencer_region)
         db.session.commit()
         return jsonify(region.to_dict()), 201
     
-@app.route('/influencers/<int:id>/regions/<int:region_id>', methods=['DELETE'])
-def influencers_regions_delete(id, region_id):
-    influencer = Influencer.query.get(id)
-    region = Region.query.get(region_id)
-    influencer.regions.remove(region)
-    db.session.commit()
-    return make_response('', 204)
+    
+# @app.route('/influencers/<int:id>/regions/<int:region_id>', methods=['DELETE'])
+# def influencers_regions_delete(id, region_id):
+#     influencer = Influencer.query.get(id)
+#     region = Region.query.get(region_id)
+#     influencer.regions.remove(region)
+#     db.session.commit()
+#     return make_response('', 204)
 
 
 
