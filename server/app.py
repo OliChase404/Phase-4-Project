@@ -186,7 +186,7 @@ def brands_regions_index(id):
 # @app.route('/brands/<int:id>/regions/<int:region_id>', methods=['DELETE'])
 # def brands_regions_delete(id, region_id):
 #     brand = Brand.query.get(id)
-#     region = Region.query.get(region_id)
+#//     region = Region.query.get(region_id)
 #     brand.regions.remove(region)
 #     db.session.commit()
 #     return make_response('', 204)
@@ -212,7 +212,7 @@ def influencers_regions_index(id):
 # @app.route('/influencers/<int:id>/regions/<int:region_id>', methods=['DELETE'])
 # def influencers_regions_delete(id, region_id):
 #     influencer = Influencer.query.get(id)
-#     region = Region.query.get(region_id)
+#//     region = Region.query.get(region_id)
 #     influencer.regions.remove(region)
 #     db.session.commit()
 #     return make_response('', 204)
