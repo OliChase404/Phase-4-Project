@@ -44,7 +44,7 @@ class InfluencerCampaign(db.Model, SerializerMixin):
 
 class Campaign(db.Model, SerializerMixin):
     __tablename__ = 'campaigns'
-    serialize_rules = ('-influencer_campaigns', '-campaigns')
+    serialize_rules = ('-influencer_campaigns', '-campaigns', '-brand_campaigns', '-brand')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -52,7 +52,7 @@ class Campaign(db.Model, SerializerMixin):
     product_category = db.Column(db.String)
     target_revenue = db.Column(db.Integer)
     target_views = db.Column(db.Integer)
-    brand_id = db.Column(db.Integer, db.ForeignKey('brands.id'))
+    # brand_id = db.Column(db.Integer, db.ForeignKey('brands.id'))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
@@ -77,7 +77,7 @@ class BrandCampaign(db.Model, SerializerMixin):
     brands = db.relationship('Brand', back_populates='brand_campaigns')
     
     
-class Brand(db.Model):
+class Brand(db.Model, SerializerMixin):
     __tablename__ = 'brands'
     serialize_rules = ('-brand_campaign', '-campaign')
     
@@ -96,7 +96,7 @@ class Brand(db.Model):
     regions = association_proxy('brand_regions', 'region', creator=lambda r: BrandRegion(region=r))
     
     
-class BrandRegion(db.Model):
+class BrandRegion(db.Model, SerializerMixin):
     __tablename__ = 'brand_regions'
     serialize_rules = ('-brand', '-region')
     
@@ -110,7 +110,7 @@ class BrandRegion(db.Model):
     region = db.relationship('Region', back_populates='brand_regions')
     
     
-class InfluencerRegion(db.Model):
+class InfluencerRegion(db.Model, SerializerMixin):
     __tablename__ = 'influencer_regions'
     serialize_rules = ('-influencer', '-region')
     
@@ -124,7 +124,7 @@ class InfluencerRegion(db.Model):
     region = db.relationship('Region', back_populates='influencer_regions')
     
     
-class Region(db.Model):
+class Region(db.Model, SerializerMixin):
     __tablename__ = 'regions'
     serialize_rules = ('-brand_regions', '-influencer_regions')
     

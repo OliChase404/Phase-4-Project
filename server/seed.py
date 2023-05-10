@@ -1,7 +1,7 @@
 from random import randint, choice as rc
 from faker import Faker
 from app import app
-from models import db, Influencer, Campaign, Brand, Region, BrandCampaign, BrandRegion, InfluencerRegion
+from models import db, Influencer, Campaign, Brand, Region, BrandCampaign, BrandRegion, InfluencerRegion, InfluencerCampaign
 from regions import regions
 fake = Faker()
 
@@ -102,11 +102,77 @@ def seed_regions():
         new_region = Region(region=region)
         db.session.add(new_region)
     db.session.commit()
+    
+def seed_campaigns():
+    for i in range(10):
+        new_campaign = Campaign(
+            name = fake.name(),
+            budget = randint(1000, 100000),
+            product_category = rc(['Tech', 'Fashion', 'Fitness']),
+            target_revenue = randint(1000, 100000),
+            target_views = randint(1000, 100000),
+        )  
+        db.session.add(new_campaign)
+    db.session.commit()
+    
+def seed_brand_campaigns():
+    for i in range(10):
+        new_brand_campaign = BrandCampaign(
+            brand_id = randint(1, 12),
+            campaign_id = randint(1, 10)
+        )
+        db.session.add(new_brand_campaign)
+    db.session.commit()
+    
+def seed_brand_regions():
+    regions = Region.query.all()
+    brands = Brand.query.all()
+    for brand in brands:
+        new_brand_region = BrandRegion(
+            brand_id = brand.id,
+            region_id = rc(regions).id
+        ) 
+        db.session.add(new_brand_region)
+    db.session.commit()
+    
+def seed_influencer_regions():
+    regions = Region.query.all()
+    influencers = Influencer.query.all()
+    for influencer in influencers:
+        new_influencer_region = InfluencerRegion(
+            influencer_id = influencer.id,
+            region_id = rc(regions).id
+        )
+        db.session.add(new_influencer_region)
+    db.session.commit()
+    
+def seed_influencer_campaigns():
+    campaigns = Campaign.query.all()
+    influencers = Influencer.query.all()
+    for influencer in influencers:
+        new_influencer_campaign = InfluencerCampaign(
+            influencer_id = influencer.id,
+            campaign_id = rc(campaigns).id
+        )
+        db.session.add(new_influencer_campaign)
+    db.session.commit()
+    
+
+    
 
 
 if __name__ == '__main__':
 
     with app.app_context():
+        print('Clearing old data...')
+        Influencer.query.delete()
+        Campaign.query.delete()
+        Brand.query.delete()
+        Region.query.delete()
+        BrandCampaign.query.delete()
+        BrandRegion.query.delete()
+        InfluencerRegion.query.delete()
+        db.session.commit()
         print('Seeding...')
         seed_brands()
         print('Seeded brands')
@@ -114,4 +180,14 @@ if __name__ == '__main__':
         print('Seeded influencers')
         seed_regions()
         print('Seeded regions')
+        seed_campaigns()
+        print('Seeded campaigns')
+        seed_brand_campaigns()
+        print('Seeded brand campaigns')
+        seed_brand_regions()
+        print('Seeded brand regions')
+        seed_influencer_regions()
+        print('Seeded influencer regions')
+        seed_influencer_campaigns()
+        print('Seeded influencer campaigns')
         print('Done!')
