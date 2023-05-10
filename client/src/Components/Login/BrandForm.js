@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import './App.css'
 
 function BrandForm() {
     const [name, setName] = useState('')

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import NavBar from "./NavBar/NavBar";
 
 function Home() {
   const [comments, setComments] = useState([]);
@@ -16,8 +15,6 @@ function Home() {
   };
 
   return (
-    <>
-      <NavBar />
       <div className="container my-5">
         <h1 className="text-center mb-4">Welcome to Sphere</h1>
         <div className="row">
@@ -58,7 +55,6 @@ function Home() {
           </div>
         </div>
       </div>
-    </>
   );
 }
 
