@@ -15,7 +15,7 @@ function Login() {
         password: password
     }
 
-    const response = await fetch('http://127.0.0.1:5555', {
+    const response = await fetch('proxy', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
