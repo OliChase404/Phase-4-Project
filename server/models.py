@@ -79,7 +79,7 @@ class BrandCampaign(db.Model, SerializerMixin):
     
 class Brand(db.Model, SerializerMixin):
     __tablename__ = 'brands'
-    serialize_rules = ('-brand_campaign', '-campaign')
+    serialize_rules = ('-brand_campaigns', '-campaigns', '-brand_regions', '-regions')
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String)
