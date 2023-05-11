@@ -1,27 +1,28 @@
 import React, {useState, useEffect} from "react";
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import { Container } from 'react-bootstrap';
+import { Card, Container, ListGroup, Button } from 'react-bootstrap';
 
-function Profile() {
+function Profile({user}) {
 
 return(
     <div>
-        <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-            <Card style={{ width: '40rem', height: '800px' }} className="mx-auto">
-                <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
-                <Card.Body>
-                <Card.Title>Insert User's Name</Card.Title>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                <ListGroup.Item>Insert User's Email</ListGroup.Item>
-                <ListGroup.Item>Insert User's Youtube Page</ListGroup.Item>
-                <ListGroup.Item>Insert User's Social's Rank</ListGroup.Item>
-                </ListGroup>
-                <Card.Body>
-                <Card.Link href="#">Link to Youtube</Card.Link>
-                <Card.Link href="#">Insert Another Social Link</Card.Link>
-                </Card.Body>
+        <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh', marginTop: '50px' }}>
+            <Card style={{ width: '40rem', height: '800px' }} className="mx-auto position-relative">
+            <Button className="position-absolute top-0 end-0 m-3">Change Image</Button>
+            <Card.Img variant="top" src={user.image} style={{ width: '400px', height: '400px' }} className="mx-auto d-block" />
+            <Card.Body>
+                <Card.Title><h1 style={{marginBottom: 0}}>{user.name}</h1></Card.Title>
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+                <ListGroup.Item><b>Email:</b> {user.email}</ListGroup.Item>
+                <ListGroup.Item><b>Youtube Link: </b><Card.Link href="#">{user.youtube}</Card.Link></ListGroup.Item>
+                <ListGroup.Item><b>Influencer Rank:</b> {user.rank}</ListGroup.Item>
+                <ListGroup.Item>
+                <b>Influencer Region:</b>
+                {/* {user.influencer_regions} */}
+                </ListGroup.Item>
+            </ListGroup>
+            <Card.Body>
+            </Card.Body>
             </Card>
         </Container>
     </div>
