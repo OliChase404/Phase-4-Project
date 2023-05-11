@@ -33,6 +33,7 @@ function App() {
   return (
     <div className="App">
       <div>
+        
         <Routes>
           <Route path="/" element={<><NavBar setUser={setUser} /> <Home /></>} />
           <Route path="/profile" element={<><NavBar setUser={setUser} /> <Profile /> </>} />

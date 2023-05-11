@@ -63,7 +63,7 @@ def seed_influencers():
             email=fake.email(),
             _password_hash='testpassword',
             image=fake.image_url(),
-            rank = 0,
+            rank = randint(1, 100),
             youtube=influencer,
             twitter='',
             instagram=''
@@ -75,7 +75,7 @@ def seed_influencers():
             name=fake.name(),
             email=fake.email(),
             image=fake.image_url(),
-            rank = 0,
+            rank = randint(1, 100),
             youtube=influencer,
             twitter='',
             instagram=''
@@ -87,7 +87,7 @@ def seed_influencers():
             name=fake.name(),
             email=fake.email(),
             image=fake.image_url(),
-            rank = 0,
+            rank = randint(1, 100),
             youtube=influencer,
             twitter='',
             instagram=''
