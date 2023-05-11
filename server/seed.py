@@ -34,25 +34,25 @@ def seed_brands():
         new_brand = Brand(
             email=fake.email(),
             brand_name=brand,
-            password=fake.password(),
             image=fake.image_url()
         )
+        new_brand.password_hash = new_brand.email + 'passwordSalt'
         db.session.add(new_brand)
     for brand in fashion_brands:
         new_brand = Brand(
             email=fake.email(),
             brand_name=brand,
-            password=fake.password(),
             image=fake.image_url()
         )
+        new_brand.password_hash = new_brand.email + 'passwordSalt'
         db.session.add(new_brand)
     for brand in fitness_brands:
         new_brand = Brand(
             email=fake.email(),
             brand_name=brand,
-            password=fake.password(),
             image=fake.image_url()
         )
+        new_brand.password_hash = new_brand.email + 'passwordSalt'
         db.session.add(new_brand)
     db.session.commit()
 
@@ -61,37 +61,38 @@ def seed_influencers():
         new_influencer = Influencer(
             name=fake.name(),
             email=fake.email(),
-            password=fake.password(),
+            _password_hash='testpassword',
             image=fake.image_url(),
             rank = 0,
             youtube=influencer,
             twitter='',
             instagram=''
         )
+        new_influencer.password_hash = new_influencer.email + 'passwordSalt'
         db.session.add(new_influencer)
     for influencer in youtube_fashion_influencers:
         new_influencer = Influencer(
             name=fake.name(),
             email=fake.email(),
-            password=fake.password(),
             image=fake.image_url(),
             rank = 0,
             youtube=influencer,
             twitter='',
             instagram=''
         )
+        new_influencer.password_hash = new_influencer.email + 'passwordSalt'
         db.session.add(new_influencer)
     for influencer in youtube_fitness_influencers:
         new_influencer = Influencer(
             name=fake.name(),
             email=fake.email(),
-            password=fake.password(),
             image=fake.image_url(),
             rank = 0,
             youtube=influencer,
             twitter='',
             instagram=''
         )
+        new_influencer.password_hash = new_influencer.email + 'passwordSalt'
         db.session.add(new_influencer)
     db.session.commit()
             

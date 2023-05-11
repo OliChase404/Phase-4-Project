@@ -11,14 +11,26 @@ import { Route, Routes } from "react-router-dom";
 import "../App.css";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // auto-login
+    fetch("/check_session").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
+  if (!user) return <Login setUser={setUser} />;
+
   return (
     <div className="App">
       <div>
-        <NavBar />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/" element={<><NavBar /> <Home /></>} />
+          <Route path="/profile" element={<><NavBar /> <Profile /> </>} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/createaccount" element={<CreateAccount />} />
         </Routes>

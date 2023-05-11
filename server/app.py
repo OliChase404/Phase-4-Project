@@ -1,20 +1,107 @@
-from flask import Flask, request, jsonify, make_response
-from flask_migrate import Migrate
+from flask import Flask, request, jsonify, make_response, session
+
+from config import app, db
 
 from models import db, Influencer, Campaign, Brand, BrandCampaign, BrandRegion, InfluencerRegion, Region, InfluencerCampaign
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.json.compact = False
-
-migrate = Migrate(app, db)
-
-db.init_app(app)
 
 @app.route('/')
 def home():
     return '<h1>Hey Man</h1>'
+
+@app.route('/signupinfluencer', methods=['POST'])
+def signup_influencer():
+    request_json = request.get_json()
+    # check_for_existing_account = Influencer.query.filter_by(influencer_email=request_json.get(email)).all()
+    # if check_for_existing_account:
+    #     return make_response('Account Already Exists', 422)
+        
+    name = request_json.get('name')
+    email = request_json.get('email')
+    image = request_json.get('image')
+    youtube = request_json.get('youtube')
+    twitter = request_json.get('twitter')
+    instagram = request_json.get('instagram')
+    new_influencer = Influencer(
+        name = name,
+        email = email,
+        image = image,
+        youtube = youtube,
+        twitter = twitter,
+        instagram = instagram
+        )
+    password = request_json.get('password')
+    new_influencer.password_hash = password
+    db.session.add(new_influencer)
+    db.session.commit()
+    session['user_id'] = new_influencer.id
+    session['user_type'] = 'influencer'
+    
+    return new_influencer.to_dict()
+    
+@app.route('/Signupbrand', methods=['POST'])
+def signup_brand():
+    request_json = request.get_json()
+    # check_for_existing_account = Brand.query.filter_by(brand_email=request_json.get(email)).all()
+    # if check_for_existing_account:
+    #     return make_response('Account Already Exists', 422)
+        
+    new_brand = Brand(
+        brand_name = request_json.get('brand_name'),
+        email = request_json.get('email'),
+        image = request_json.get('image')
+    )
+    password = request_json.get('password')
+    new_brand.password_hash = password
+    db.session.add(new_brand)
+    db.session.commit()
+    session['user_id'] = new_brand.id
+    session['user_type'] = 'brand'
+    
+@app.route('/check_session', methods=['GET'])
+def check_session():
+    # user = None
+    if session.get('user_id'):
+        if session.get('user_type') == 'influencer':
+            user = Influencer.query.filter(Influencer.id == session['user_id']).first()
+        elif session.get('user_type') == 'brand':
+            user = Brand.query.filter(Brand.id == session['user_id']).first()
+        return user.to_dict(), 200
+
+    return {'error': '401 Unauthorized'}, 401
+    
+
+@app.route('/login', methods=['POST'])
+def login():
+    request_json = request.get_json()
+    email = request_json.get('email')
+    password = request_json.get('password')
+    check_for_influencer_account = Influencer.query.filter(Influencer.email == email).first()
+    check_for_brand_account = Brand.query.filter(Brand.email == email).first()
+    
+    if check_for_influencer_account:
+        user = check_for_influencer_account
+        if user.authenticate(password):
+            session['user_id'] = user.id
+            session['user_type'] = 'influencer'
+            return user.to_dict(), 200
+    elif check_for_brand_account:
+        user = check_for_brand_account
+        if user.authenticate(password):
+            session['user_id'] = user.id
+            session['user_type'] = 'brand'
+            return user.to_dict(), 200
+    
+    return {'error': '401 Unauthorized'}, 401
+
+@app.route('/logout', methods=['DELETE'])
+def logout():
+    
+    if session.get('user_id'):
+        session['user_id'] = None
+        return {}, 204
+    return {'error': '401 Unauthorized'}, 401
+
 
 
 @app.route('/influencers', methods=['GET', 'POST'])

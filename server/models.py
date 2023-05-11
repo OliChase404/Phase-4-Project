@@ -3,8 +3,9 @@ from sqlalchemy import MetaData
 from sqlalchemy.orm import validates
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.ext.hybrid import hybrid_property
 
-db = SQLAlchemy()
+from config import app, db, bcrypt
 
 
 class Influencer(db.Model, SerializerMixin):
@@ -14,7 +15,7 @@ class Influencer(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     email = db.Column(db.String)
-    password = db.Column(db.String)
+    _password_hash = db.Column(db.String)
     image = db.Column(db.String)
     rank = db.Column(db.Integer)
     youtube = db.Column(db.String)
@@ -27,6 +28,51 @@ class Influencer(db.Model, SerializerMixin):
     campaigns = association_proxy('influencer_campaigns', 'campaign', creator=lambda c: InfluencerCampaign(campaign=c))
     influencer_regions = db.relationship('InfluencerRegion', back_populates='influencer')
     
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError('Password hashes may not be viewed.')
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(
+            password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8'))
+    
+class Brand(db.Model, SerializerMixin):
+    __tablename__ = 'brands'
+    serialize_rules = ('-brand_campaigns', '-campaigns', '-brand_regions', '-regions')
+    
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String)
+    brand_name = db.Column(db.String)
+    _password_hash = db.Column(db.String)
+    image = db.Column(db.String)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    
+    brand_campaigns = db.relationship('BrandCampaign', back_populates='brands')
+    campaigns = association_proxy('brand_campaigns', 'campaign', creator=lambda c: BrandCampaign(campaign=c))
+    
+    brand_regions = db.relationship('BrandRegion', back_populates='brand')
+    regions = association_proxy('brand_regions', 'region', creator=lambda r: BrandRegion(region=r))
+    
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError('Password hashes may not be viewed.')
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(
+            password.encode('utf-8'))
+        self._password_hash = password_hash.decode('utf-8')
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8'))
     
 class InfluencerCampaign(db.Model, SerializerMixin):
     __tablename__ = 'influencer_campaigns'
@@ -77,23 +123,6 @@ class BrandCampaign(db.Model, SerializerMixin):
     brands = db.relationship('Brand', back_populates='brand_campaigns')
     
     
-class Brand(db.Model, SerializerMixin):
-    __tablename__ = 'brands'
-    serialize_rules = ('-brand_campaigns', '-campaigns', '-brand_regions', '-regions')
-    
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String)
-    brand_name = db.Column(db.String)
-    password = db.Column(db.String)
-    image = db.Column(db.String)
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
-    
-    brand_campaigns = db.relationship('BrandCampaign', back_populates='brands')
-    campaigns = association_proxy('brand_campaigns', 'campaign', creator=lambda c: BrandCampaign(campaign=c))
-    
-    brand_regions = db.relationship('BrandRegion', back_populates='brand')
-    regions = association_proxy('brand_regions', 'region', creator=lambda r: BrandRegion(region=r))
     
     
 class BrandRegion(db.Model, SerializerMixin):
