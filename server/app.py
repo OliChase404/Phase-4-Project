@@ -186,7 +186,8 @@ def campaigns_show(id):
 def regions_index():
     if request.method == 'GET':
         regions = Region.query.all()
-        return jsonify([r.to_dict() for r in regions])
+        sorted_regions = sorted(regions, key=lambda r: r.region)
+        return jsonify([r.to_dict() for r in sorted_regions])
     elif request.method == 'POST':
         new_region = Region(**request.json)
         db.session.add(new_region)

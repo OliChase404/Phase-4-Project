@@ -2,7 +2,7 @@ regions = [
     'Los Angeles, CA', 'New York, NY', 'Chicago, IL', 'Houston, TX', 'Phoenix, AZ',
     'Philadelphia, PA', 'San Antonio, TX', 'San Diego, CA', 'Dallas, TX', 'San Jose, CA',
     'Austin, TX', 'Jacksonville, FL', 'Fort Worth, TX', 'Columbus, OH', 'Charlotte, NC',
-    'San Francisco, CA', 'Indianapolis, IN', 'Seattle, WA', 'Denver, CO', 'Washington, DC',
+    'San Francisco, CA', 'Indianapolis, IN', 'Denver, CO', 'Washington, DC',
     'Boston, MA', 'El Paso, TX', 'Nashville, TN', 'Detroit, MI', 'Portland, OR', 'Memphis, TN',
     'Oklahoma City, OK', 'Las Vegas, NV', 'Louisville, KY', 'Baltimore, MD', 'Milwaukee, WI',
     'Albuquerque, NM', 'Tucson, AZ', 'Fresno, CA', 'Mesa, AZ', 'Sacramento, CA', 'Atlanta, GA',

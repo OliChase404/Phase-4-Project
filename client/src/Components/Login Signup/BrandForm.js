@@ -9,6 +9,19 @@ function BrandForm() {
     const [password, setPassword] = useState('')
     const [region, setRegion] = useState('')
     const [selectedRegion, setSelectedRegion] = useState("Choose your Region")
+    const [regionsFromDb, setRegionsFromDb] = useState([])
+
+    useEffect(() => {
+        fetch('/regions')
+        .then(resp => resp.json())
+        .then(data => setRegionsFromDb(data))
+    }, [])
+
+    const renderRegions = regionsFromDb.map((region, index) => (
+        <Dropdown.Item key={region.id} href={`#/action-${index+1}`} onClick={(event) => handleDropDownMenu(event)}>
+            {region.region}
+        </Dropdown.Item>
+        ));
 
     const handleDropDownMenu = (event) => {
         setRegion(event.target.innerText);
@@ -61,31 +74,7 @@ function BrandForm() {
 
                 <Dropdown.Menu>
                 <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1" onClick={handleDropDownMenu}>Bangladesh</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2" onClick={handleDropDownMenu}>Brazil</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3" onClick={handleDropDownMenu}>China</Dropdown.Item>
-                    <Dropdown.Item href="#/action-4" onClick={handleDropDownMenu}>Congo</Dropdown.Item>
-                    <Dropdown.Item href="#/action-5" onClick={handleDropDownMenu}>Egypt</Dropdown.Item>
-                    <Dropdown.Item href="#/action-6" onClick={handleDropDownMenu}>Ethiopia</Dropdown.Item>
-                    <Dropdown.Item href="#/action-7" onClick={handleDropDownMenu}>France</Dropdown.Item>
-                    <Dropdown.Item href="#/action-8" onClick={handleDropDownMenu}>Germany</Dropdown.Item>
-                    <Dropdown.Item href="#/action-9" onClick={handleDropDownMenu}>Italy</Dropdown.Item>
-                    <Dropdown.Item href="#/action-10" onClick={handleDropDownMenu}>India</Dropdown.Item>
-                    <Dropdown.Item href="#/action-11"onClick={handleDropDownMenu} >Indonesia</Dropdown.Item>
-                    <Dropdown.Item href="#/action-12" onClick={handleDropDownMenu}>Iran</Dropdown.Item>
-                    <Dropdown.Item href="#/action-13" onClick={handleDropDownMenu}>Japan</Dropdown.Item>
-                    <Dropdown.Item href="#/action-14" onClick={handleDropDownMenu}>Mexico</Dropdown.Item>
-                    <Dropdown.Item href="#/action-15" onClick={handleDropDownMenu}>Nigeria</Dropdown.Item>
-                    <Dropdown.Item href="#/action-16" onClick={handleDropDownMenu}>Pakistan</Dropdown.Item>
-                    <Dropdown.Item href="#/action-17" onClick={handleDropDownMenu}>Phillippines</Dropdown.Item>
-                    <Dropdown.Item href="#/action-18" onClick={handleDropDownMenu}>Russia</Dropdown.Item>
-                    <Dropdown.Item href="#/action-19" onClick={handleDropDownMenu}>South Africa</Dropdown.Item>
-                    <Dropdown.Item href="#/action-20" onClick={handleDropDownMenu}>Tanzania</Dropdown.Item>
-                    <Dropdown.Item href="#/action-21" onClick={handleDropDownMenu}>Thailand</Dropdown.Item>
-                    <Dropdown.Item href="#/action-22" onClick={handleDropDownMenu}>Turkey</Dropdown.Item>
-                    <Dropdown.Item href="#/action-23" onClick={handleDropDownMenu}>United Kingdom</Dropdown.Item>
-                    <Dropdown.Item href="#/action-24" onClick={handleDropDownMenu}>United States</Dropdown.Item>
-                    <Dropdown.Item href="#/action-25" onClick={handleDropDownMenu}>Vietnam</Dropdown.Item>
+                    {renderRegions}
                 </Dropdown.Menu>
                 </Dropdown.Menu>
             </Dropdown>
