@@ -3,7 +3,6 @@ import Home from "./Home/Home";
 import Login from "./Login/Login";
 import Messages from "./Social/Messages";
 import Profile from "./Home/Profile";
-import CreateAccount from "./Login/CreateAccount";
 import NavBar from "./NavBar/NavBar";
 import Notifications from "./Home/Notifications";
 import Performance from "./Home/Performance";
@@ -35,14 +34,14 @@ function App() {
     <div className="App">
       <div>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/" element={<><NavBar setUser={setUser} /> <Home /></>} />
           <Route path="/profile" element={<><NavBar setUser={setUser} /> <Profile /> </>} />
           <Route path="/home" element={<><NavBar setUser={setUser} /> <Home /></>} />
           <Route path="/" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/messages" element={<Messages />} />
-          <Route path="/createaccount" element={<CreateAccount />} />
+          {/* <Route path="/createaccount" element={<CreateAccount />} /> */}
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/performance" element={<Performance />} />
         </Routes>

@@ -16,7 +16,7 @@ function NavBar({ setUser }) {
 
   return (
     <Navbar bg="primary" variant="dark" expand="lg" sticky="top">
-      <img src="https://github.com/OliChase404/Phase-4-Project/blob/main/client/Assets/4096325394.gif"></img>
+      <img src="../../../Assets/4096325394.gif"></img>
       <Navbar.Brand>
           Sphere
       </Navbar.Brand>
