@@ -7,6 +7,9 @@ function InfluencerForm() {
     const [password, setPassword] = useState('')
     const [region, setRegion] = useState('')
     const [selectedRegion, setSelectedRegion] = useState("Choose Your Region")
+    const [regionsFromDb, setRegionsFromDb] = useState([])
+
+
 
     const handleDropDownMenu = (event) => {
         setRegion(event.target.innerText);

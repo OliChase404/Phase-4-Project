@@ -4,13 +4,16 @@ import BrandForm from "./BrandForm";
 
 
 
-function CreateAccount() {
+function CreateAccount({setUser, setLoginNotSignup}) {
     const [influencerNotBrand, setInfluencerNotBrand] = useState(true);
 
 
     return (
         <div className="CreateAccountForm">
-            <h1 style={{paddingTop:"50px", paddingBottom:"50px", fontSize:"3.5rem"}}>SPHERE</h1>
+            <button onClick={() => setInfluencerNotBrand(prev => !prev)}>{influencerNotBrand ? 'Signup as a Brand' : 'Signup as an Influencer'}</button>
+            <br/>
+            <button onClick={() => setLoginNotSignup(prev => !prev)}>Return to Login</button>
+            {influencerNotBrand ? <InfluencerForm setUser={setUser}/> : <BrandForm setUser={setUser}/>}
         </div>
     )
 }
