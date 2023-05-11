@@ -16,7 +16,7 @@ function NavBar({ setUser }) {
 
   return (
     <Navbar bg="primary" variant="dark" expand="lg" sticky="top">
-      <img src="../../../Assets/4096325394.gif"></img>
+      <img src="image.png"></img>
       <Navbar.Brand>
           Sphere
       </Navbar.Brand>
