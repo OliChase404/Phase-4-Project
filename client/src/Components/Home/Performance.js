@@ -7,21 +7,23 @@ function Performance() {
 
 return(
     <div>
-        <Card style={{ width: '30rem', height: '600px' }}>
-            <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
-            <Card.Body>
+        <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+            <Card style={{ width: '40rem', height: '800px' }} className="mx-auto">
+                <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
+                <Card.Body>
                 <Card.Title>Insert User's Name</Card.Title>
-            </Card.Body>
-            <ListGroup className="list-group-flush">
+                </Card.Body>
+                <ListGroup className="list-group-flush">
                 <ListGroup.Item>Insert User's Email</ListGroup.Item>
-                <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-            </ListGroup>
-            <Card.Body>
-                <Card.Link href="#">Card Link</Card.Link>
-                <Card.Link href="#">Another Link</Card.Link>
-            </Card.Body>
-        </Card>
+                <ListGroup.Item>Insert User's Youtube Page</ListGroup.Item>
+                <ListGroup.Item>Insert User's Social's Rank</ListGroup.Item>
+                </ListGroup>
+                <Card.Body>
+                <Card.Link href="#">Link to Youtube</Card.Link>
+                <Card.Link href="#">Insert Another Social Link</Card.Link>
+                </Card.Body>
+            </Card>
+        </Container>
     </div>
     )
 }
