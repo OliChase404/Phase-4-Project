@@ -23,6 +23,9 @@ function NavBar({ setUser }) {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
+          <Nav.Link as={NavLink} to="/">
+            <FaUser /> Home
+          </Nav.Link>
           <Nav.Link as={NavLink} to="/profile">
             <FaUser /> Profile
           </Nav.Link>
