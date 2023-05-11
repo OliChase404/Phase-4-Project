@@ -36,9 +36,9 @@ function App() {
       <div>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<><NavBar /> <Home /></>} />
-          <Route path="/profile" element={<><NavBar /> <Profile /> </>} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<><NavBar setUser={setUser} /> <Home /></>} />
+          <Route path="/profile" element={<><NavBar setUser={setUser} /> <Profile /> </>} />
+          <Route path="/home" element={<><NavBar setUser={setUser} /> <Home /></>} />
           <Route path="/" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/messages" element={<Messages />} />

@@ -3,7 +3,17 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import { FaUser, FaEnvelope, FaBullhorn, FaChartLine, FaBell, FaDollarSign } from 'react-icons/fa';
 
-function NavBar() {
+function NavBar({ setUser }) {
+
+
+    function handleLogoutClick() {
+      fetch("/logout", { method: "DELETE" }).then((r) => {
+        if (r.ok) {
+          setUser(null);
+        }
+      });
+    }
+
   return (
     <Navbar bg="primary" variant="dark" expand="lg" sticky="top">
       <Navbar.Brand>
@@ -28,6 +38,7 @@ function NavBar() {
             <NavDropdown.Item href="#notification"><FaBell /> Notification</NavDropdown.Item>
             <NavDropdown.Item href="#finances"><FaDollarSign /> Finances</NavDropdown.Item>
           </NavDropdown>
+          <button onClick={() => handleLogoutClick()}>Logout</button>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
@@ -35,5 +46,3 @@ function NavBar() {
 }
 
 export default NavBar;
-
-        
