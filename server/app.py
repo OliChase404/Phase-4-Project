@@ -58,6 +58,8 @@ def signup_brand():
     session['user_id'] = new_brand.id
     session['user_type'] = 'brand'
     
+    return new_brand.to_dict()
+    
 @app.route('/check_session', methods=['GET'])
 def check_session():
     # user = None

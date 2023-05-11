@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
-import { Dropdown, Button, Form } from 'react-bootstrap';
-import { Navigate } from "react-router-dom";
+import React, {useState, useEffect} from "react"
+import { Dropdown, Button, Form } from 'react-bootstrap'
+import { Navigate } from "react-router-dom"
 
 function InfluencerForm({setUser}) {
     const [name, setName] = useState('')
@@ -27,8 +27,8 @@ function InfluencerForm({setUser}) {
         ));
           
     const handleDropDownMenu = (event) => {
-        setRegion(event.target.innerText);
-        setSelectedRegion(event.target.textContent);
+        setRegion(event.target.innerText)
+        setSelectedRegion(event.target.textContent)
     }
 
     const handleSubmit = async (event) => {
@@ -66,7 +66,7 @@ return (
     <div className="container">
         <Form onSubmit={(event) => handleSubmit(event)}>
         <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Influencer Full Name</Form.Label>
+            <Form.Label>Full Name</Form.Label>
             <Form.Control value={name} onChange={e => setName(e.target.value)} type="name" placeholder="Enter full name" />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">

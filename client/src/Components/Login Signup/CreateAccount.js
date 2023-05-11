@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
-import InfluencerForm from "./InfluencerForm";
-import BrandForm from "./BrandForm";
+import React, {useState, useEffect} from "react"
+import InfluencerForm from "./InfluencerForm"
+import BrandForm from "./BrandForm"
 
 
 
@@ -18,4 +18,4 @@ function CreateAccount({setUser, setLoginNotSignup}) {
     )
 }
 
-export default CreateAccount;
+export default CreateAccount

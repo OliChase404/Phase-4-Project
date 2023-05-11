@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import {Card, Button} from "react-bootstrap"
 import CampaignCollection from "./CampaignCollection";
 
+
 function Home() {
-  const [influencerCampaigns, setInfluencerCampaigns] = useState([]);
-  const [brandCampaigns, setBrandCampaigns] = useState([]);
+  const [influencerCampaigns, setInfluencerCampaigns] = useState([])
+  const [brandCampaigns, setBrandCampaigns] = useState([])
 
   useEffect(() => {
     fetch("/influencers/3/campaigns")
