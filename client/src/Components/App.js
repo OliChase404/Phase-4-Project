@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "./Home/Home";
-import Login from "./Login/Login";
+import LoginSignup from "./Login Signup/LoginSignup";
 import Messages from "./Social/Messages";
 import Profile from "./Home/Profile";
 import NavBar from "./NavBar/NavBar";
@@ -22,11 +22,11 @@ function App() {
       }
     });
     if(user){
-      <Navigate to="/home" />
+      <Navigate to="/" />
     }
   }, []);
 
-  if (!user) return <Login setUser={setUser} />
+  if (!user) return <LoginSignup setUser={setUser} />
 
 
 
@@ -36,7 +36,6 @@ function App() {
         <Routes>
           <Route path="/" element={<><NavBar setUser={setUser} /> <Home /></>} />
           <Route path="/profile" element={<><NavBar setUser={setUser} /> <Profile /> </>} />
-          <Route path="/profile" element={<Profile />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/performance" element={<Performance />} />

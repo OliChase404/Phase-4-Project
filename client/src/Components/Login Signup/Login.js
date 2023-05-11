@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from "react";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, {useState, useEffect} from "react"
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 import {Link, Navigate} from "react-router-dom"
 
 
-function Login({ setUser }) {
+function Login({ setUser, setLoginNotSignup }) {
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState([]);
+    const [password, setPassword] = useState("")
+    const [errors, setErrors] = useState([])
     
     function handleSubmit(e) {
-      e.preventDefault();
+      e.preventDefault()
       fetch("/login", {
         method: "POST",
         headers: {
@@ -22,9 +22,9 @@ function Login({ setUser }) {
           r.json().then((user) => setUser(user))
           .then(<Navigate to="/" />)
         } else {
-          r.json().then((err) => setErrors(err.errors));
+          r.json().then((err) => setErrors(err.errors))
         }
-      });
+      })
     }
 
 
@@ -44,11 +44,9 @@ function Login({ setUser }) {
                 Login
             </Button>
                 &nbsp;
-            <Link to='/createaccount'>
-                <Button variant="secondary" type="button">
+                <Button onClick={() => setLoginNotSignup(prev => !prev)} variant="secondary" type="button">
                     Create Account
                 </Button>
-            </Link>
         </Form>
     </div>
         );

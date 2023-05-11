@@ -5,20 +5,12 @@ import BrandForm from "./BrandForm";
 
 
 function CreateAccount() {
-    const [isOn, setIsOn] = useState(false);
-    const [switchForm, setSwitchForm] = useState(true);
-
-    const handleClick1 = () => {
-        setIsOn(!isOn)
-    };
-
-    const handleClick2 = () => {
-        setSwitchForm(!switchForm)
-    }
+    const [influencerNotBrand, setInfluencerNotBrand] = useState(true);
 
 
     return (
         <div className="CreateAccountForm">
+            <h1 style={{paddingTop:"50px", paddingBottom:"50px", fontSize:"3.5rem"}}>SPHERE</h1>
         </div>
     )
 }
