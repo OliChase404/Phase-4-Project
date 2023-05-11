@@ -34,16 +34,15 @@ function App() {
     <div className="App">
       <div>
         <Routes>
-          <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/" element={<><NavBar setUser={setUser} /> <Home /></>} />
           <Route path="/profile" element={<><NavBar setUser={setUser} /> <Profile /> </>} />
-          <Route path="/home" element={<><NavBar setUser={setUser} /> <Home /></>} />
-          <Route path="/" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/messages" element={<Messages />} />
-          {/* <Route path="/createaccount" element={<CreateAccount />} /> */}
           <Route path="/notifications" element={<Notifications />} />
           <Route path="/performance" element={<Performance />} />
+          {/* <Route path="/login" element={<Login setUser={setUser} />} /> */}
+          {/* <Route path="/home" element={<><NavBar setUser={setUser} /> <Home /></>} /> */}
+          {/* <Route path="/createaccount" element={<CreateAccount />} /> */}
         </Routes>
       </div>
     </div>
