@@ -34,7 +34,7 @@ def seed_brands():
         new_brand = Brand(
             email=fake.email(),
             brand_name=brand,
-            image=fake.image_url()
+            image='https://cdn-icons-png.flaticon.com/512/1946/1946429.png'
         )
         new_brand.password_hash = new_brand.email + 'passwordSalt'
         db.session.add(new_brand)
@@ -42,7 +42,7 @@ def seed_brands():
         new_brand = Brand(
             email=fake.email(),
             brand_name=brand,
-            image=fake.image_url()
+            image='https://cdn-icons-png.flaticon.com/512/1946/1946429.png'
         )
         new_brand.password_hash = new_brand.email + 'passwordSalt'
         db.session.add(new_brand)
@@ -50,7 +50,7 @@ def seed_brands():
         new_brand = Brand(
             email=fake.email(),
             brand_name=brand,
-            image=fake.image_url()
+            image='https://cdn-icons-png.flaticon.com/512/1946/1946429.png'
         )
         new_brand.password_hash = new_brand.email + 'passwordSalt'
         db.session.add(new_brand)
@@ -62,7 +62,7 @@ def seed_influencers():
             name=fake.name(),
             email=fake.email(),
             _password_hash='testpassword',
-            image=fake.image_url(),
+            image='https://cdn-icons-png.flaticon.com/512/1946/1946429.png',
             rank = randint(1, 100),
             youtube=influencer,
             twitter='',
@@ -74,7 +74,7 @@ def seed_influencers():
         new_influencer = Influencer(
             name=fake.name(),
             email=fake.email(),
-            image=fake.image_url(),
+            image='https://cdn-icons-png.flaticon.com/512/1946/1946429.png',
             rank = randint(1, 100),
             youtube=influencer,
             twitter='',
@@ -86,7 +86,7 @@ def seed_influencers():
         new_influencer = Influencer(
             name=fake.name(),
             email=fake.email(),
-            image=fake.image_url(),
+            image='https://cdn-icons-png.flaticon.com/512/1946/1946429.png',
             rank = randint(1, 100),
             youtube=influencer,
             twitter='',
