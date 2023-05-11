@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {Link} from "react-router-dom"
+import {Link, Navigate} from "react-router-dom"
 
 
 function Login({ onLogin }) {
@@ -10,7 +10,7 @@ function Login({ onLogin }) {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-  
+    
     function handleSubmit(e) {
       e.preventDefault();
       setIsLoading(true);
@@ -28,6 +28,7 @@ function Login({ onLogin }) {
           r.json().then((err) => setErrors(err.errors));
         }
       });
+      window.location.reload()
     }
 
 

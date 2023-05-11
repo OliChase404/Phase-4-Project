@@ -9,7 +9,7 @@ import Notifications from "./Home/Notifications";
 import Performance from "./Home/Performance";
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "../App.css";
 
 function App() {
@@ -22,9 +22,14 @@ function App() {
         r.json().then((user) => setUser(user));
       }
     });
+    if(user){
+      <Navigate to="/home" />
+    }
   }, []);
 
-  if (!user) return <Login setUser={setUser} />;
+  if (!user) return <Login setUser={setUser} />
+
+
 
   return (
     <div className="App">
