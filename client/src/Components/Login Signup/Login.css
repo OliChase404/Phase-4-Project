@@ -1,0 +1,23 @@
+.Login {
+    background-image: url("https://images.unsplash.com/photo-1556764900-fa065610b0e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+    height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    perspective: 2px;
+    background-size: 100% 100%;
+    padding-bottom: 20px;
+    opacity: 0.75;
+}
+
+.CreateAccountForm {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    background: rgba(221,160,221, 0.3);
+}
+
+/* .CreateAccountForm > button {
+    justify-items: center;
+} */
