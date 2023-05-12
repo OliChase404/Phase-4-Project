@@ -27,7 +27,7 @@ youtube_fitness_influencers = [
 tech_brands = ['iFixit', 'Nord VPN', 'Honey', 'Squarespace']
 fashion_brands = ['COS', '& Other Stories', 'Polene', 'Madewell']
 fitness_brands = ['Gym Shark', 'Fitbit', 'Under Armour', 'Lulu Lemon']
-
+all_brands = tech_brands + fashion_brands + fitness_brands
 
 def seed_brands():
     for brand in tech_brands:
@@ -107,7 +107,7 @@ def seed_regions():
 def seed_campaigns():
     for i in range(10):
         new_campaign = Campaign(
-            name = fake.name(),
+            name = rc(all_brands) + ' Campaign',
             budget = randint(1000, 100000),
             product_category = rc(['Tech', 'Fashion', 'Fitness']),
             target_revenue = randint(1000, 100000),

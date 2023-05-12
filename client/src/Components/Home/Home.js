@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import {Card, Button} from "react-bootstrap"
 import CampaignCollection from "./CampaignCollection";
 
-function Home() {
+function Home({user}) {
   const [influencerCampaigns, setInfluencerCampaigns] = useState([]);
   const [brandCampaigns, setBrandCampaigns] = useState([]);
-  const [user, setUser] = useState([])
+  // const [user, setUser] = useState([])
  
 
   useEffect(() => {
@@ -13,8 +13,6 @@ function Home() {
     .then(resp => resp.json())
     .then(data => {
       setInfluencerCampaigns(data)
-      setUser(data[0].name)
-      console.log(user)
     })
   }, [])
 
@@ -24,7 +22,7 @@ function Home() {
     .then(data => setBrandCampaigns(data))
     }, [])
 
-    const displayUser = user === [] ? 'User!' : user
+    const displayUser = user === [] ? 'User!' : user.name
 
   return (
   <div style={{margin: "20px"}}>

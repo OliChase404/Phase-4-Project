@@ -12,25 +12,25 @@ const extra = (
   )
   
 
-function Profile() {
-    const [user, setUser] = useState([])
+function Profile({user}) {
+  
 
-    useEffect(() => {
-        fetch("/influencers/3/campaigns")
-        .then(resp => resp.json())
-        .then(data => {
-          setUser(data[0].name)
-        })
-      }, [])
+    // useEffect(() => {
+    //     fetch("/influencers/3/campaigns")
+    //     .then(resp => resp.json())
+    //     .then(data => {
+    //       setUser(data[0].name)
+    //     })
+    //   }, [])
 
 return(
     <div>
         <Container className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
         <Card
             image='https://images.unsplash.com/photo-1603217039863-aa0c865404f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
-            header={user}
-            meta='Cool chick'
-            description={user + 'is a fashion blogger living in Nashville who enjoys bubble tea and hanging out with her corgies.'}
+            header={user.name}
+            meta='Subtitle'
+            description={user.name + ' illo quis voluptas est. Placeat quibusdam perspiciatis ipsum sit unde dignissimos ipsa rerum. Adipisci voluptas sit ab et voluptatem libero asperiores.'}
             extra={extra}
         />
             

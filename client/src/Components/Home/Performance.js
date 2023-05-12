@@ -4,11 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { Container } from 'react-bootstrap';
 import { Card, Icon } from 'semantic-ui-react'
 
-const extra = (
-    <a>
-      <Icon name='heart' color="red" />
-    </a>
-  )
+
 
 function Performance() {
 
@@ -35,19 +31,16 @@ return(
                 image='https://images.unsplash.com/photo-1483058712412-4245e9b90334?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
                 meta="User's social rank"
                 description='Curious how you rank amongst other influencers?'
-                extra={extra}
             />
              <Card
                 image='https://images.unsplash.com/photo-1548328928-34db1c5fcc1f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
                 meta="User's Youtube page"
                 description='Click to see your youtube performance'
-                extra={extra}
             />
              <Card
                 image='https://images.unsplash.com/photo-1616469829935-c2f33ebd89b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
                 meta="User's instagram"
                 description='Click to see your instagram performance'
-                extra={extra}
             />
         </Card.Group>
         </Container>

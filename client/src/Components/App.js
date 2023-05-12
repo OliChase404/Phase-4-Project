@@ -35,8 +35,8 @@ function App() {
       <div>
         
         <Routes>
-          <Route path="/" element={<><NavBar setUser={setUser} /> <Home /></>} />
-          <Route path="/profile" element={<><NavBar setUser={setUser} /> <Profile /> </>} />
+          <Route path="/" element={<><NavBar setUser={setUser} /> <Home user={user} /></>} />
+          <Route path="/profile" element={<><NavBar setUser={setUser} /> <Profile user={user} /> </>} />
           <Route path="/messages" element={<><NavBar setUser={setUser} /> <Messages /> </>} />
           <Route path="/notifications" element={<><NavBar setUser={setUser} /> <Notifications /> </>} />
           <Route path="/performance" element={<><NavBar setUser={setUser} /> <Performance /> </>} />

@@ -19,7 +19,7 @@ function CampaignCollection({influencerCampaigns, brandCampaigns}) {
 
     return (
     <div className="Campaigns">
-        <Header as="h2">Hello From Campaign Collection</Header>
+        <Header as="h2">Your Campaign Collection</Header>
         <div className="Cards">
             {influencerCampaignRender}
             {brandCampaignRender}
