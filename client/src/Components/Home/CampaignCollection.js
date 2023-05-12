@@ -1,30 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import {Card, Button} from "react-bootstrap"
+import { ListGroup} from "react-bootstrap";
+import { Container, Divider } from 'semantic-ui-react'
 import InfluencerCampaignCard from "./InfluencerCampaignCard";
 import BrandCampaignCard from "./BrandCampaignCard";
-import {Card, Button} from "react-bootstrap";
 
 
-
-function CampaignCollection({influencerCampaigns, brandCampaigns}) {
-
-
-    const influencerCampaignRender = influencerCampaigns.map((influencerCampaign) => {
-        return <InfluencerCampaignCard influencerCampaign={influencerCampaign} key={influencerCampaign.id}/>
-    })
-
-    const brandCampaignRender = brandCampaigns.map((brandCampaign) => {
-        return <BrandCampaignCard brandCampaign={brandCampaign} key={brandCampaign.id}/>
-    })
+function CampaignCollection({user, campaigns}) {
+    const renderCampaigns = campaigns.map((campaign) => 
+            Object.hasOwnProperty(user, "youtube") 
+            ? <InfluencerCampaignCard campaign={campaign} key={campaign.id} user={user}/> 
+            : <BrandCampaignCard campaign={campaign} key={campaign.id} user={user}/>
+        );
 
     return (
-    <div>
-        <h1>Hello From Campaign Collection</h1>
-        {/* <Card.Group itemsPerRow={1}> */}
-            {influencerCampaignRender}
-            {brandCampaignRender}
-        {/* </Card.Group> */}
-    </div>
-    );
-    }
+        <div>
+            {renderCampaigns}
+        </div>
+    )
+
+}
+
 
 export default CampaignCollection;

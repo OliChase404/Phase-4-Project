@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from "react";
 import {Card, Button} from "react-bootstrap"
+import { ListGroup} from "react-bootstrap";
+import { Container, Divider } from 'semantic-ui-react'
+import InfluencerCampaignCard from "./InfluencerCampaignCard";
+import BrandCampaignCard from "./BrandCampaignCard";
 import CampaignCollection from "./CampaignCollection";
 
 
-function Home() {
-  const [influencerCampaigns, setInfluencerCampaigns] = useState([])
-  const [brandCampaigns, setBrandCampaigns] = useState([])
+function Home({user, campaigns}) {
 
-  useEffect(() => {
-    fetch("/influencers/3/campaigns")
-    .then(resp => resp.json())
-    .then(data => setInfluencerCampaigns(data))
-  }, [])
+    return (
+      <CampaignCollection user={user} campaigns={campaigns}/>
+    )
+  }
 
-  useEffect(() => {
-    fetch("/brands/5/campaigns")
-    .then(resp => resp.json())
-    .then(data => setBrandCampaigns(data))
-    }, [])
 
-  return (
-  <div>
-    <h1>Welcome, User!</h1>
-    <CampaignCollection influencerCampaigns={influencerCampaigns} brandCampaigns={brandCampaigns}/>
-  </div>
-  );
-}
+
 
 export default Home;

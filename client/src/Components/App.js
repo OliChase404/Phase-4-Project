@@ -13,6 +13,7 @@ import "../App.css";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [campaigns, setCampaigns] = useState([])
 
   useEffect(() => {
     // auto-login
@@ -26,16 +27,26 @@ function App() {
     }
   }, []);
 
+  
+  useEffect(() => {
+    if (user && Object.hasOwn(user, "youtube")) {
+      fetch(`/influencers/${user.id}/campaigns`)
+        .then(resp => resp.json())
+        .then(data => setCampaigns(data))
+    } else if (user) {
+      fetch(`/brands/${user.id}/campaigns`)
+        .then(resp => resp.json())
+        .then(data => setCampaigns(data))
+    }
+  }, [user])
+  
   if (!user) return <LoginSignup setUser={setUser} />
-
-
-
   return (
     <div className="App">
       <div>
         
         <Routes>
-          <Route path="/" element={<><NavBar setUser={setUser} /> <Home user={user}/></>} />
+          <Route path="/" element={<><NavBar setUser={setUser} /> <Home user={user} campaigns={campaigns}/></>} />
           <Route path="/profile" element={<><NavBar setUser={setUser} /> <Profile user={user}/> </>} />
           <Route path="/messages" element={<><NavBar setUser={setUser} /> <Messages user={user}/> </>} />
           <Route path="/notifications" element={<><NavBar setUser={setUser} /> <Notifications user={user}/> </>} />
