@@ -12,11 +12,12 @@ function InfluencerCampaignCard({campaign, user}) {
           <Container style={{ 
             textAlign: 'center', 
             backgroundColor: '#f8f8f8', 
-            padding: '20px', 
+            padding: '25px', 
             borderRadius: '5px', 
             boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.3)',
-            marginBottom: '0',
+            margin: '20',
             width: '70%',
+            height: '25%',
             fontSize: '1.5em',
             display: 'flex'
           }}>
