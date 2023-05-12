@@ -10,7 +10,10 @@ import CampaignCollection from "./CampaignCollection";
 function Home({user, campaigns}) {
 
     return (
-      <CampaignCollection user={user} campaigns={campaigns}/>
+      <div>
+        <h1 style={{ marginTop: '20px' }}>Hello, {user.name}</h1>
+        <CampaignCollection user={user} campaigns={campaigns}/>
+      </div>
     )
   }
 

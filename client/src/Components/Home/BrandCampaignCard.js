@@ -8,7 +8,6 @@ function BrandCampaignCard({campaign, user}) {
 
     return(
         <div>
-        <h1 style={{ marginTop: '20px' }}>Hello, {user.brand_name}</h1>
           <Container style={{ 
             textAlign: 'justified', 
             backgroundColor: '#f8f8f8', 

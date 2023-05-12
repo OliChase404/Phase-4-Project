@@ -9,13 +9,16 @@ function InfluencerCampaignCard({campaign, user}) {
 
     return(
         <div>
-        <h1 style={{ marginTop: '20px' }}>Hello, {user.brand_name}</h1>
           <Container style={{ 
-            textAlign: 'justified', 
+            textAlign: 'center', 
             backgroundColor: '#f8f8f8', 
             padding: '20px', 
             borderRadius: '5px', 
-            boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.3)' 
+            boxShadow: '0px 0px 5px 0px rgba(0,0,0,0.3)',
+            marginBottom: '0',
+            width: '70%',
+            fontSize: '1.5em',
+            display: 'flex'
           }}>
             <b>Campaign Name:</b>{campaign.name}
             <Divider />

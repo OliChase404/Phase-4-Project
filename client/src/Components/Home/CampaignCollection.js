@@ -8,7 +8,7 @@ import BrandCampaignCard from "./BrandCampaignCard";
 
 function CampaignCollection({user, campaigns}) {
     const renderCampaigns = campaigns.map((campaign) => 
-            Object.hasOwnProperty(user, "youtube") 
+            Object.hasOwn(user, "youtube") 
             ? <InfluencerCampaignCard campaign={campaign} key={campaign.id} user={user}/> 
             : <BrandCampaignCard campaign={campaign} key={campaign.id} user={user}/>
         );
