@@ -1,7 +1,15 @@
 import React, {useState, useEffect} from "react"
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 import {Link, Navigate} from "react-router-dom"
+import {
+  Form,
+  Grid,
+  Button,
+  Header,
+  Message,
+  Segment,
+} from "semantic-ui-react";
+
+import './Login.css';
 
 
 function Login({ setUser, setLoginNotSignup }) {
@@ -29,25 +37,51 @@ function Login({ setUser, setLoginNotSignup }) {
 
 
     return (
-    <div>
-        <h1 style={{paddingTop:"50px", paddingBottom:"50px", fontSize:"3.5rem"}}>SPHERE</h1>
-        <Form onSubmit={(e) => handleSubmit(e)}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)}/>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="text" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/>
-            </Form.Group>
-            <Button variant="primary" type="submit">
+      <div className="Login">
+      <Grid textAlign="center" verticalAlign="middle">
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header size="huge" textAlign="center" style={{marginTop: '50px', color: 'purple'}}>
+            Log-in to your SPHERE
+          </Header>
+          <Form
+            className="login-form"
+            onSubmit={(e) => handleSubmit(e)}
+            size="large"
+            >
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon="user"
+                iconPosition="left"
+                type="text"
+                name="email"
+                placeholder="E-mail address"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+              <br />
+
+              <Form.Input
+                fluid
+                icon="lock"
+                iconPosition="left"
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+              <br />
+              <Button color="purple" fluid size="large" type="submit">
                 Login
-            </Button>
-                &nbsp;
-                <Button onClick={() => setLoginNotSignup(prev => !prev)} variant="secondary" type="button">
-                    Create Account
-                </Button>
-        </Form>
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            New to us? <a onClick={() => setLoginNotSignup(prev => !prev)} style={{color: 'blue', textDecoration: 'underline'}}>Sign Up</a>
+          </Message>
+        </Grid.Column>
+      </Grid>
     </div>
         );
     }

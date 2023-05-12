@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from "react";
-import { Dropdown, Button, Form } from 'react-bootstrap';
+// import { Dropdown, Button, Form } from 'react-bootstrap';
+import { Form, Button, Grid, Header, Segment, Dropdown} from "semantic-ui-react";
 import { Navigate } from "react-router-dom";
+
+import './Login.css';
 
 function InfluencerForm({setUser}) {
     const [name, setName] = useState('')
@@ -20,11 +23,11 @@ function InfluencerForm({setUser}) {
         .then(data => setRegionsFromDb(data))
     }, [])
 
-    const renderRegions = regionsFromDb.map((region, index) => (
-        <Dropdown.Item key={region.id} href={`#/action-${index+1}`} onClick={(event) => handleDropDownMenu(event)}>
-            {region.region}
-        </Dropdown.Item>
-        ));
+    // const renderRegions = regionsFromDb.map((region, index) => (
+    //     <Dropdown.Item key={region.id} href={`#/action-${index+1}`} onClick={(event) => handleDropDownMenu(event)}>
+    //         {region.region}
+    //     </Dropdown.Item>
+    //     ));
           
     const handleDropDownMenu = (event) => {
         setRegion(event.target.innerText);
@@ -63,40 +66,119 @@ function InfluencerForm({setUser}) {
 
 
 return (
-    <div className="container">
-        <Form onSubmit={(event) => handleSubmit(event)}>
-        <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Influencer Full Name</Form.Label>
-            <Form.Control value={name} onChange={e => setName(e.target.value)} type="name" placeholder="Enter full name" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
-            <Form.Text className="text-muted">
+    <>
+    <div className="Login">
+        <Grid textAlign="center" verticalAlign="middle">
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header size="huge" textAlign="center" style={{marginTop: '50px', color: 'purple'}}>
+              Create Your Account
+            </Header>
+            <Form
+              className="signup-form"
+              onSubmit={(event) => handleSubmit(event)}
+              size="large"
+            >
+              <Segment stacked>
+                <label>Influencer Full Name</label>
+                <Form.Input
+                  fluid
+                  placeholder="Enter Full Name"
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+                <br />
+
+                <label>Email address</label>
+                <Form.Input
+                  fluid
+                  placeholder="Enter Email"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <br />
+
+                <label>Enter password</label>    
+                <Form.Input
+                  fluid
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+                <br />
+
+                <label>Confirm password</label>      
+                <Form.Input
+                  fluid
+                  placeholder="Confirm Password"
+                  type="password"
+                  name="password"
+                  value={confirm}
+                  onChange={e => setConfirm(e.target.value)}
+                />
+                <br />
+
+                <label>YouTube Account</label>
+                <Form.Input
+                  fluid
+                  placeholder="Enter Youtube Account"
+                  type="text"
+                  name="youtube"
+                  value={youtube}
+                  onChange={e => setYouTube(e.target.value)}
+                />
+                <br />
+
+                <label>Instagram Account</label>
+                <Form.Input
+                  fluid
+                  placeholder="Enter Instagram Account"
+                  type="text"
+                  name="instagram"
+                  value={instagram}
+                  onChange={e => setInstagram(e.target.value)}
+                />
+                <br />
+
+                <label>Twitter Account</label>
+                <Form.Input
+                  fluid
+                  placeholder="Enter Twitter Account"
+                  type="text"
+                  name="twitter"
+                  value={twitter}
+                  onChange={e => setTwitter(e.target.value)}
+                />
+                <br />
+
+                <Button color="purple" fluid size="large">
+                  Sign Up
+                </Button>
+              </Segment>
+            </Form>
+          </Grid.Column>
+        </Grid>
+      </div>
+    {/* <div className="container">
+        <Form onSubmit={(event) => handleSubmit(event)}> */}
+    
+    
+        
+            {/* <Form.Text className="text-muted">
             We'll never share your email with anyone else.
-            </Form.Text>
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicConfirm">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" value={confirm} onChange={e => setConfirm(e.target.value)} />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicYouTube">
-            <Form.Label>YouTube Account</Form.Label>
-            <Form.Control type="text" placeholder="Enter YouTube account" value={youtube} onChange={e => setYouTube(e.target.value)} />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicInstagram">
-            <Form.Label>Instagram Account</Form.Label>
-            <Form.Control type="text" placeholder="Enter Instagram account" value={instagram} onChange={e => setInstagram(e.target.value)} />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicTwitter">
-            <Form.Label>Twitter Account</Form.Label>
-            <Form.Control type="text" placeholder="Enter Twitter account" value={twitter} onChange={e => setTwitter(e.target.value)} />
-        </Form.Group>
-        <Form.Label>Region</Form.Label>
+            </Form.Text> */}
+        
+      
+       
+      
+        
+      
+        {/* <Form.Label>Region</Form.Label>
         <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
             {selectedRegion}
@@ -104,14 +186,15 @@ return (
             <Dropdown.Menu>
             {renderRegions}
             </Dropdown.Menu>
-        </Dropdown>
-        <div style={{ marginTop: '20px' }}>
+        </Dropdown> */}
+        {/* <div style={{ marginTop: '20px' }}>
             <Button variant="secondary" type="submit">
             SignUp
             </Button>
         </div>
-        </Form>
-    </div>
+        </Form> */}
+    {/* </div> */}
+    </>
     );
       
 }

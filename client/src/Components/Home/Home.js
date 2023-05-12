@@ -5,11 +5,17 @@ import CampaignCollection from "./CampaignCollection";
 function Home() {
   const [influencerCampaigns, setInfluencerCampaigns] = useState([]);
   const [brandCampaigns, setBrandCampaigns] = useState([]);
+  const [user, setUser] = useState([])
+ 
 
   useEffect(() => {
     fetch("/influencers/3/campaigns")
     .then(resp => resp.json())
-    .then(data => setInfluencerCampaigns(data))
+    .then(data => {
+      setInfluencerCampaigns(data)
+      setUser(data[0].name)
+      console.log(user)
+    })
   }, [])
 
   useEffect(() => {
@@ -18,9 +24,12 @@ function Home() {
     .then(data => setBrandCampaigns(data))
     }, [])
 
+    const displayUser = user === [] ? 'User!' : user
+
   return (
-  <div>
-    <h1>Welcome, User!</h1>
+  <div style={{margin: "20px"}}>
+    <h1>Welcome, {displayUser}</h1>
+    <img src="https://images.unsplash.com/photo-1613053341085-db794820ce43?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" />
     <CampaignCollection influencerCampaigns={influencerCampaigns} brandCampaigns={brandCampaigns}/>
   </div>
   );

@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+// import Button from 'react-bootstrap/Button';
+// import Form from 'react-bootstrap/Form';
+import { Form, Button, Grid, Header, Segment} from "semantic-ui-react";
 
 function BrandForm() {
     const [name, setName] = useState('')
@@ -49,42 +50,85 @@ function BrandForm() {
     };
 
     return (
-        <div className="container">
-            <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicName">
-                <Form.Label>Brand Name</Form.Label>
-                <Form.Control type="name" placeholder="Enter brand name" value={name} onChange={e => setName(e.target.value)}/>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)}/>
-                <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                </Form.Text>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/>
-            </Form.Group>
-            <Form.Label>Region</Form.Label>
-            <Dropdown>
-                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    {selectedRegion}
-                </Dropdown.Toggle>
+        <div className="Login">
+        <Grid textAlign="center" verticalAlign="middle">
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header size="huge" textAlign="center" style={{marginTop: '50px', color: 'purple'}}>
+              Create Your Account
+            </Header>
+            <Form
+              className="brand-form"
+              onSubmit={handleSubmit}
+              size="large"
+            >
+              <Segment stacked>
+                <label>Brand Name</label>
+                <Form.Input
+                  fluid
+                  placeholder="Enter Brand Name"
+                  type="text"
+                  name="name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+                <br />
 
-                <Dropdown.Menu>
-                <Dropdown.Menu>
-                    {renderRegions}
-                </Dropdown.Menu>
-                </Dropdown.Menu>
-            </Dropdown>
-            <div style={{ marginTop: '20px' }}>
-            <Button variant="secondary" type="submit">
-                Create Account
-            </Button>
-            </div>
+                <label>Email address</label>
+                <Form.Input
+                  fluid
+                  placeholder="Enter Email"
+                  type="text"
+                  name="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+                <br />
+
+                <label>Enter password</label>    
+                <Form.Input
+                  fluid
+                  placeholder="Password"
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+                <br />
+
+                {/* <Dropdown
+                    placeholder='Region'
+                    fluid
+                    multiple
+                    search
+                    selection
+                    options={renderRegions}
+                    onChange={selectedRegion}
+                />
+                <br /> */}
+
+                <Button color="purple" fluid size="large">
+                  Create Account
+                </Button>
+              </Segment>
             </Form>
-        </div>
+          </Grid.Column>
+        </Grid>
+      </div>
+
+            
+           
+            // {/* <Form.Label>Region</Form.Label> */}
+            // {/* <Dropdown>
+            //     <Dropdown.Toggle variant="success" id="dropdown-basic">
+            //         {selectedRegion}
+            //     </Dropdown.Toggle>
+
+            //     <Dropdown.Menu>
+            //     <Dropdown.Menu>
+            //         {renderRegions}
+            //     </Dropdown.Menu>
+            //     </Dropdown.Menu>
+            // </Dropdown> */}
     )
 }
 

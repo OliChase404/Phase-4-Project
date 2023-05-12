@@ -1,7 +1,9 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { FaUser, FaEnvelope, FaBullhorn, FaChartLine, FaBell, FaDollarSign } from 'react-icons/fa';
+import globe from '../assets/globe.gif';
+import { Button } from "semantic-ui-react";
 
 function NavBar({ setUser }) {
 
@@ -15,9 +17,9 @@ function NavBar({ setUser }) {
     }
 
   return (
-    <Navbar bg="primary" variant="dark" expand="lg" sticky="top">
-      <img src="../../../Assets/4096325394.gif"></img>
-      <Navbar.Brand>
+    <Navbar style={{background: "purple"}} variant="dark" expand="lg" sticky="top">
+      <img src={globe} style={{width: '50px', height: '50px'}}/>
+      <Navbar.Brand style={{paddingLeft: "20px"}}>
           Sphere
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -42,7 +44,9 @@ function NavBar({ setUser }) {
             <NavDropdown.Item href="#notification"><FaBell /> Notification</NavDropdown.Item>
             <NavDropdown.Item href="#finances"><FaDollarSign /> Finances</NavDropdown.Item>
           </NavDropdown>
-          <button onClick={() => handleLogoutClick()}>Logout</button>
+          <Nav>
+          <Button className="LogoutButton" color="purple" inverted fluid  onClick={() => handleLogoutClick()}>Logout</Button>
+          </Nav>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

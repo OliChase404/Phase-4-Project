@@ -1,8 +1,9 @@
 import React from "react";
 import InfluencerCampaignCard from "./InfluencerCampaignCard";
 import BrandCampaignCard from "./BrandCampaignCard";
-import {Card, Button} from "react-bootstrap";
+import {Card, Button, Image, Header} from 'semantic-ui-react';
 
+import './campaigns.css';
 
 
 function CampaignCollection({influencerCampaigns, brandCampaigns}) {
@@ -17,12 +18,12 @@ function CampaignCollection({influencerCampaigns, brandCampaigns}) {
     })
 
     return (
-    <div>
-        <h1>Hello From Campaign Collection</h1>
-        {/* <Card.Group itemsPerRow={1}> */}
+    <div className="Campaigns">
+        <Header as="h2">Hello From Campaign Collection</Header>
+        <div className="Cards">
             {influencerCampaignRender}
             {brandCampaignRender}
-        {/* </Card.Group> */}
+        </div>
     </div>
     );
     }
