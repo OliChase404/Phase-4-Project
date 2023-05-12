@@ -3,6 +3,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import { FaUser, FaEnvelope, FaBullhorn, FaChartLine, FaBell, FaDollarSign } from 'react-icons/fa';
 
+
 function NavBar({ setUser }) {
 
 
@@ -16,7 +17,8 @@ function NavBar({ setUser }) {
 
   return (
     <Navbar bg="primary" variant="dark" expand="lg" sticky="top">
-      <img src="../../../Assets/4096325394.gif"></img>
+    <img src="https://i.postimg.cc/k5q6BfbH/4096325394.gif" alt="logo" style={{marginLeft: "20px", width:"30px", height:"30px"}}/>
+
       <Navbar.Brand>
           Sphere
       </Navbar.Brand>
