@@ -10,7 +10,7 @@ from config import app, db, bcrypt
 
 class Influencer(db.Model, SerializerMixin):
     __tablename__ = 'influencers'
-    serialize_rules = ('-influencer_campaigns', '-campaigns')
+    serialize_rules = ('-influencer_campaigns', '-campaigns', 'influencer_regions.region')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -44,7 +44,7 @@ class Influencer(db.Model, SerializerMixin):
     
 class Brand(db.Model, SerializerMixin):
     __tablename__ = 'brands'
-    serialize_rules = ('-brand_campaigns', '-campaigns')
+    serialize_rules = ('-brand_campaigns', '-campaigns', '-regions', 'brand_regions.region')
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String)
