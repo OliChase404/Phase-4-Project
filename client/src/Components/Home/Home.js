@@ -9,9 +9,12 @@ import CampaignCollection from "./CampaignCollection";
 
 function Home({user, campaigns}) {
 
+  console.log("user", user)
+  console.log("campaigns", campaigns)
+
     return (
       <div>
-        <h1 style={{ marginTop: '20px' }}>Hello, {user.name}</h1>
+        <h1 style={{ marginTop: '20px' }}>Hello, {user.name ? user.name : user.brand_name}</h1>
         <CampaignCollection user={user} campaigns={campaigns}/>
       </div>
     )
