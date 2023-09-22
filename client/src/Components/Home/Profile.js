@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Card, Container, ListGroup, Button } from "react-bootstrap";
+import { UserContext } from "../App";
 
-function Profile({ user }) {
 
+function Profile() {
+  const { user, setUser } = React.useContext(UserContext);
   // Hello
 
   return Object.hasOwn(user, "youtube") ? (
@@ -42,7 +44,7 @@ function Profile({ user }) {
             </ListGroup.Item>
             <ListGroup.Item>
               <b>Influencer Region: </b>
-              {user.influencer_regions[0].region.region}
+              {/* {user.influencer_regions[0].region.region} */}
             </ListGroup.Item>
           </ListGroup>
           <Card.Body></Card.Body>

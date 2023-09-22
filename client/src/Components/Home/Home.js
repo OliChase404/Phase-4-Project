@@ -5,9 +5,12 @@ import { Container, Divider } from 'semantic-ui-react'
 import InfluencerCampaignCard from "./InfluencerCampaignCard";
 import BrandCampaignCard from "./BrandCampaignCard";
 import CampaignCollection from "./CampaignCollection";
+import { UserContext } from "../App";
 
 
-function Home({user, campaigns}) {
+function Home({campaigns}) {
+
+    const { user, setUser } = React.useContext(UserContext);
 
     return (
       <div>

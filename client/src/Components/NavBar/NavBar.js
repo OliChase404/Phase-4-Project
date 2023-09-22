@@ -2,10 +2,11 @@ import React from "react";
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import { FaUser, FaEnvelope, FaBullhorn, FaChartLine, FaBell, FaDollarSign } from 'react-icons/fa';
+import { UserContext } from "../App"
 
 
-function NavBar({ setUser }) {
-
+function NavBar() {
+  const { user, setUser } = React.useContext(UserContext);
 
     function handleLogoutClick() {
       fetch("/logout", { method: "DELETE" }).then((r) => {
